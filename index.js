@@ -31,7 +31,7 @@ app.put('/api/SensorData/:id', sensorDataController.updateSensorData);
 app.delete('/api/SensorData/:id', sensorDataController.deleteSensorData);
 
 mongoose.connection.once('open', () => {
-    const listenr = app.listen(3000, () => {
-        console.log(`Listening on port ${listenr.address().port}...`);
+    const listener = app.listen(3000, () => {
+        console.log(`Listening on port ${listener.address().port}...`);
     })
 });
