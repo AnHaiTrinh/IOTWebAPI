@@ -24,6 +24,10 @@ const db = process.env.MONGO_DATABASE;
     }
 })();
 
+app.use(express.urlencoded({ extended: false }));
+
+app.use(express.json());
+
 app.get('/api/SensorData', sensorDataController.getAllSensorData);
 app.get('/api/SensorData/:id', sensorDataController.getSensorData);
 app.post('/api/SensorData', sensorDataController.createSensorData);

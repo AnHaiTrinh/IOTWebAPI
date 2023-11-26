@@ -14,7 +14,7 @@ const getSensorData = async (req, res) => {
     }
     const sensorData = await SensorData.findById(req.params.id);
     if(!sensorData) {
-        return res.status(204).json({ message: `No sensorData found with ID: ${req.params.id}` });
+        return res.status(404).json({ message: `No sensorData found with ID: ${req.params.id}` });
     }
     return res.status(200).json(sensorData);
 }
@@ -43,7 +43,7 @@ const updateSensorData = async (req, res) => {
     const sensorData = await SensorData.findById(req.params.id);
     
     if(!sensorData) {
-        return res.status(204).json({ message: `No sensorData found with ID: ${req.params.id}` });
+        return res.status(404).json({ message: `No sensorData found with ID: ${req.params.id}` });
     }
     
     if (!req?.body?.name && !req?.body?.value && !req?.body?.recieveTime) {
@@ -60,7 +60,7 @@ const updateSensorData = async (req, res) => {
         sensorData.recieveTime = req.body.recieveTime;
     }
     const result = await sensorData.save();
-    return res.json(result);
+    return res.status(204).send();
 }
 
 const deleteSensorData = async (req, res) => {
@@ -71,8 +71,8 @@ const deleteSensorData = async (req, res) => {
     if(!sensorData) {
         return res.status(204).json({ message: `No sensorData found with ID: ${req.params.id}` });
     }
-    await sensorData.remove();
-    return res.staus(204).json({ message: 'SensorData deleted successfully!' });
+    await sensorData.deleteOne();
+    return res.status(200).json(sensorData);
 }
 
 module.exports = {
